@@ -1,6 +1,5 @@
 package com.maulnad.moviecatalogue.ui.home.content.movies
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,9 +7,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
 import com.maulnad.moviecatalogue.databinding.ItemsPosterBinding
-import com.maulnad.moviecatalogue.model.DataEntity
-import com.maulnad.moviecatalogue.ui.detail.DetailPageActivity
+import com.maulnad.moviecatalogue.data.model.DataEntity
 import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
+import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_SIZE_ENDPOINT
+import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_TMDD_ENDPOINT
 
 class MoviesAdapter(private val contentCallback: ContentCallback):
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
@@ -27,10 +27,9 @@ class MoviesAdapter(private val contentCallback: ContentCallback):
         fun bind(movies: DataEntity) {
             with(binding) {
                 tvTitle.text = movies.title
-                tvGenre.text = movies.genre
 
                 Glide.with(itemView.context)
-                    .load(movies.imagePath)
+                    .load(IMAGE_URL_TMDD_ENDPOINT + IMAGE_URL_SIZE_ENDPOINT + movies.poster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

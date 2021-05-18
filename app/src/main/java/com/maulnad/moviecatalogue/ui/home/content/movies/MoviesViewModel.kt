@@ -1,9 +1,10 @@
 package com.maulnad.moviecatalogue.ui.home.content.movies
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.maulnad.moviecatalogue.model.DataEntity
-import com.maulnad.moviecatalogue.utils.DataDummy
+import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
 
-class MoviesViewModel : ViewModel() {
-    fun getMovies(): List<DataEntity> = DataDummy.generateDummyMovies()
+class MoviesViewModel(private val catalogueRepository: MovieCatalogueRepository) : ViewModel() {
+    fun getMovies(): LiveData<List<DataEntity>> = catalogueRepository.getAllMovie()
 }

@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.maulnad.moviecatalogue.data.model.DataEntity
 import com.maulnad.moviecatalogue.databinding.FragmentMoviesBinding
-import com.maulnad.moviecatalogue.model.DataEntity
 import com.maulnad.moviecatalogue.ui.detail.DetailPageActivity
 import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
+import com.maulnad.moviecatalogue.viewmodel.ViewModelFactory
 
 class MoviesFragment : Fragment(), ContentCallback {
 
@@ -29,14 +30,17 @@ class MoviesFragment : Fragment(), ContentCallback {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
-            val viewModel = ViewModelProvider(
-                this,
-                ViewModelProvider.NewInstanceFactory()
-            )[MoviesViewModel::class.java]
-            val movies = viewModel.getMovies()
+            val factory = ViewModelFactory.getInstance()
+            val viewModel = ViewModelProvider(this, factory)[MoviesViewModel::class.java]
 
             val moviesAdapter = MoviesAdapter(this@MoviesFragment)
-            moviesAdapter.setMovies(movies)
+
+            fragmentMoviesBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getMovies().observe(this, {
+                fragmentMoviesBinding.progressBar.visibility = View.GONE
+                moviesAdapter.setMovies(it)
+                moviesAdapter.notifyDataSetChanged()
+            })
 
             with(fragmentMoviesBinding.rvMovies) {
                 layoutManager = GridLayoutManager(context, 2)

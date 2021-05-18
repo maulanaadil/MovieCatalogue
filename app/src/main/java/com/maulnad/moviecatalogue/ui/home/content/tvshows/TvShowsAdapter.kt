@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
+import com.maulnad.moviecatalogue.data.model.DataEntity
 import com.maulnad.moviecatalogue.databinding.ItemsPosterBinding
-import com.maulnad.moviecatalogue.model.DataEntity
 import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
+import com.maulnad.moviecatalogue.utils.Helper
 
 class TvShowsAdapter(private val contentCallback: ContentCallback) :
     RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() {
@@ -18,6 +19,7 @@ class TvShowsAdapter(private val contentCallback: ContentCallback) :
         if (tvShows == null) return
         this.listTvShows.clear()
         this.listTvShows.addAll(tvShows)
+        notifyDataSetChanged()
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsPosterBinding) :
@@ -25,10 +27,9 @@ class TvShowsAdapter(private val contentCallback: ContentCallback) :
         fun bind(tvShows: DataEntity) {
             with(binding) {
                 tvTitle.text = tvShows.title
-                tvGenre.text = tvShows.genre
 
                 Glide.with(itemView.context)
-                    .load(tvShows.imagePath)
+                    .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + tvShows.poster)
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)

@@ -1,233 +1,428 @@
 package com.maulnad.moviecatalogue.utils
 
-import com.maulnad.moviecatalogue.R
-import com.maulnad.moviecatalogue.model.DataEntity
+import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.remote.response.MovieDetailResponse
+import com.maulnad.moviecatalogue.data.source.remote.response.TvShowDetailResponse
+import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_SIZE_ENDPOINT
+import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_TMDD_ENDPOINT
 
 object DataDummy {
-    fun generateDummyMovies(): List<DataEntity> {
-        val movies = ArrayList<DataEntity>()
+
+    fun generateDataDummyMoviesResponse(): List<MovieDetailResponse> {
+        val movies = ArrayList<MovieDetailResponse>()
         movies.add(
-            DataEntity(
-                "m1",
-                "Ralph Breaks The Internet",
-                "Wreck-It Ralph is the 9-foot-tall, 643-pound villain of an arcade video game named Fix-It Felix Jr., in which the game's titular hero fixes buildings that Ralph destroys. Wanting to prove he can be a good guy and not just a villain, Ralph escapes his game and lands in Hero's Duty, a first-person shooter where he helps the game's hero battle against alien invaders. He later enters Sugar Rush, a kart racing game set on tracks made of candies, cookies and other sweets. There, Ralph meets Vanellope von Schweetz who has learned that her game is faced with a dire threat that could affect the entire arcade, and one that Ralph may have inadvertently started.",
-                "11/02/2012",
-                "Family, Animation, Comedy, Adventure",
-                R.drawable.poster_ralph
+            MovieDetailResponse(
+                id = 1,
+                title = "Tom Clancy's Without Remorse",
+                overview = "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
+                posterPath = "https://image.tmdb.org/t/p/w500/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/fPGeS6jgdLovQAKunNHX8l0avCy.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m2",
-                "A Star Is Born",
-                "Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even as Ally's career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.",
-                "10/05/2018",
-                "Drama, Romance, Music",
-                R.drawable.poster_a_start_is_born
+            MovieDetailResponse(
+                id = 2,
+                title = "Mortal Kombat",
+                overview = "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                posterPath = "https://image.tmdb.org/t/p/w500/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/6ELCZlTA5lGUops70hKdB83WJxH.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m3",
-                "Bohemian Rhapsody",
-                "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hit songs become instant classics. When Mercury's increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess.",
-                "11/02/2018",
-                "Music, Drama, History",
-                R.drawable.poster_bohemian
+            MovieDetailResponse(
+                id = 3,
+                title = "Vanquish",
+                overview = "Victoria is a young mother trying to put her dark past as a Russian drug courier behind her, but retired cop Damon forces Victoria to do his bidding by holding her daughter hostage. Now, Victoria must use guns, guts and a motorcycle to take out a series of violent gangsters—or she may never see her child again.",
+                posterPath = "https://image.tmdb.org/t/p/w500/AoWY1gkcNzabh229Icboa1Ff0BM.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/6zbKgwgaaCyyBXE4Sun4oWQfQmi.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m4",
-                "Creed II",
-                "Between personal obligations and training for his next big fight against an opponent with ties to his family's past, Adonis Creed is up against the challenge of his life.",
-                "11/21/2018",
-                "Drama",
-                R.drawable.poster_creed
+            MovieDetailResponse(
+                id = 4,
+                title = "Godzilla vs. Kong",
+                overview = "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+                posterPath = "https://image.tmdb.org/t/p/w500/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m5",
-                "Avengers: Infinity War",
-                "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
-                "04/27/2018",
-                "Adventure, Action, Science Fiction",
-                R.drawable.poster_infinity_war
+            MovieDetailResponse(
+                id = 5,
+                title = "Thunder Force",
+                overview = "In a world where supervillains are commonplace, two estranged childhood best friends reunite after one devises a treatment that gives them powers to protect their city.",
+                posterPath = "https://image.tmdb.org/t/p/w500/duK11VQd4UPDa7UJrgrGx90xJOx.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/z7HLq35df6ZpRxdMAE0qE3Ge4SJ.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m6",
-                "Alita: Battle Angel",
-                "When Alita awakens with no memory of who she is in a future world she does not recognize, she is taken in by Ido, a compassionate doctor who realizes that somewhere in this abandoned cyborg shell is the heart and soul of a young woman with an extraordinary past.",
-                "02/14/2019",
-                "Action, Science Fiction, Adventure",
-                R.drawable.poster_alita
+            MovieDetailResponse(
+                id = 6,
+                title = "Nobody",
+                overview = "Hutch Mansell, a suburban dad, overlooked husband, nothing neighbor — a \"nobody.\" When two thieves break into his home one night, Hutch's unknown long-simmering rage is ignited and propels him on a brutal path that will uncover dark secrets he fought to leave behind.",
+                posterPath = "https://image.tmdb.org/t/p/w500/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/6zbKgwgaaCyyBXE4Sun4oWQfQmi.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m7",
-                "Mary Queen Of Scots",
-                "In 1561, Mary Stuart, widow of the King of France, returns to Scotland, reclaims her rightful throne and menaces the future of Queen Elizabeth I as ruler of England, because she has a legitimate claim to the English throne. Betrayals, rebellions, conspiracies and their own life choices imperil both Queens. They experience the bitter cost of power, until their tragic fate is finally fulfilled.",
-                "12/21/2018",
-                "Drama, History",
-                R.drawable.poster_marry_queen
+            MovieDetailResponse(
+                id = 7,
+                title = "Sentinelle",
+                overview = "Transferred home after a traumatizing combat mission, a highly trained French soldier uses her lethal skills to hunt down the man who hurt her sister.",
+                posterPath = "https://image.tmdb.org/t/p/w500/AmUGn1rJ9XDDP6DYn9OA2uV8MIg.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/eTgQlyIQH0nA5BsmYpvCzSPAorg.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m8",
-                "Robin Hood",
-                "A war-hardened Crusader and his Moorish commander mount an audacious revolt against the corrupt English crown.",
-                "11/21/2018",
-                "Adventure, Action, Thriller",
-                R.drawable.poster_robin_hood
+            MovieDetailResponse(
+                id = 8,
+                title = "Zack Snyder's Justice League",
+                overview = "Determined to ensure Superman's ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.",
+                posterPath = "https://image.tmdb.org/t/p/w500/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m9",
-                "Serenity",
-                "The quiet life of Baker Dill, a fishing boat captain who lives on the isolated Plymouth Island, where he spends his days obsessed with capturing an elusive tuna while fighting his personal demons, is interrupted when someone from his past comes to him searching for help.",
-                "01/25/2019",
-                "Thriller, Mystery, Drama",
-                R.drawable.poster_serenity
+            MovieDetailResponse(
+                id = 9,
+                title = "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
+                overview = "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
+                posterPath = "https://image.tmdb.org/t/p/w500/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/xPpXYnCWfjkt3zzE0dpCNME1pXF.jpg"
             )
         )
 
         movies.add(
-            DataEntity(
-                "m10",
-                "Glass",
-                "In a series of escalating encounters, former security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.",
-                "01/18/2019",
-                "Thriller, Drama, Science Fiction",
-                R.drawable.poster_glass
+            MovieDetailResponse(
+                id = 10,
+                title = "Miraculous World: Shanghai – The Legend of Ladydragon",
+                overview = "To join Adrien in Shanghai, Marinette is going to visit her uncle Wang who is celebrating his anniversary. But, as soon as she arrives in China, her purse gets stolen with Tikki inside, whom she needs to secretly transform into Ladybug! Without money and alone in the immense city, Marinette accepts the help of a young and resourceful girl, Fei. The two girls will ally and discover the existence of a new magical jewel, the Prodigious. Hawk Moth, also present in Shanghai, seeks to finding it since a long time...",
+                posterPath = "https://image.tmdb.org/t/p/w500/msI5a9TPnepx47JUb2vl88hb80R.jpg",
+                backgroundPath = "https://image.tmdb.org/t/p/w500/lHhc60NXYzswU4TvKSo45nY9Jzs.jpg"
             )
         )
         return movies
     }
 
-    fun generateDummyTvShows(): List<DataEntity> {
+    fun generateDataDummyTvShowsResponse(): List<TvShowDetailResponse> {
+        val tvShows = ArrayList<TvShowDetailResponse>()
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 1,
+                name = "The Falcon and the Winter Soldier",
+                overview = "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+                posterPath = "https://image.tmdb.org/t/p/w500/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 2,
+                name = "Invincible",
+                overview = "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his father’s tutelage.",
+                posterPath = "https://image.tmdb.org/t/p/w500/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 3,
+                name = "Selena: The Series",
+                overview = "As Mexican-American Tejano singer Selena comes of age and realizes her dreams, she and her family make tough choices to hold on to love and music.",
+                posterPath = "https://image.tmdb.org/t/p/w500/mYsWyfiIMxx4HDm0Wck7oJ9ckez.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/Wu8kh7oyvaIfkNyMJyJHCamh5L.jpg"
+
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 4,
+                name = "The Flash",
+                overview = "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
+                posterPath = "https://image.tmdb.org/t/p/w500/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 5,
+                name = "The Good Doctor",
+                overview = "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
+                posterPath = "https://image.tmdb.org/t/p/w500/53P8oHo9cfOsgb1cLxBi4pFY0ja.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/mZjZgY6ObiKtVuKVDrnS9VnuNlE.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 6,
+                name = "The Handmaid's Tale",
+                overview = "Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship. A TV adaptation of Margaret Atwood's novel.",
+                posterPath = "https://image.tmdb.org/t/p/w500/oIkxqt6ug5zT5ZSUUyc1Iqopf02.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/hNiGqLsiD30C194lci7VYDmciHD.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 7,
+                name = "Grey's Anatomy",
+                overview = "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+                posterPath = "https://image.tmdb.org/t/p/w500/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 8,
+                name = "Luis Miguel: The Series",
+                overview = "The series dramatizes the life story of Mexican superstar singer Luis Miguel, who has captivated audiences in Latin America and beyond for decades.",
+                posterPath = "https://image.tmdb.org/t/p/w500/34FaY8qpjBAVysSfrJ1l7nrAQaD.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/wkyzeBBKLhSg1Oqhky5yoiFF2hG.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 9,
+                name = "The Bad Batch",
+                overview = "Follow the elite and experimental Clones of the Bad Batch as they find their way in a rapidly changing galaxy in the aftermath of the Clone Wars.",
+                posterPath = "https://image.tmdb.org/t/p/w500/WjQmEWFrOf98nT5aEfUfVYz9N2.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/WjQmEWFrOf98nT5aEfUfVYz9N2.jpg"
+            )
+        )
+
+        tvShows.add(
+            TvShowDetailResponse(
+                id = 10,
+                name = "Lucifer",
+                overview = "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+                posterPath = "https://image.tmdb.org/t/p/w500/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                backdropPath = "https://image.tmdb.org/t/p/w500/ta5oblpMlEcIPIS2YGcq9XEkWK2.jpg"
+            )
+        )
+        return tvShows
+    }
+
+    fun generateDummyMovies(): List<DataEntity> {
+
+        val movies = ArrayList<DataEntity>()
+
+        movies.add(
+            DataEntity(
+                1,
+                "Tom Clancy's Without Remorse",
+                "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
+                "https://image.tmdb.org/t/p/w500/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
+                "https://image.tmdb.org/t/p/w500/fPGeS6jgdLovQAKunNHX8l0avCy.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                2,
+                "Mortal Kombat",
+                "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
+                "https://image.tmdb.org/t/p/w500/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                "https://image.tmdb.org/t/p/w500/6ELCZlTA5lGUops70hKdB83WJxH.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                3,
+                "Vanquish",
+                "Victoria is a young mother trying to put her dark past as a Russian drug courier behind her, but retired cop Damon forces Victoria to do his bidding by holding her daughter hostage. Now, Victoria must use guns, guts and a motorcycle to take out a series of violent gangsters—or she may never see her child again.",
+                "https://image.tmdb.org/t/p/w500/AoWY1gkcNzabh229Icboa1Ff0BM.jpg",
+                "https://image.tmdb.org/t/p/w500/6zbKgwgaaCyyBXE4Sun4oWQfQmi.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                4,
+                "Godzilla vs. Kong",
+                "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+                "https://image.tmdb.org/t/p/w500/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+                "https://image.tmdb.org/t/p/w500/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                5,
+                "Thunder Force",
+                "In a world where supervillains are commonplace, two estranged childhood best friends reunite after one devises a treatment that gives them powers to protect their city.",
+                "https://image.tmdb.org/t/p/w500/duK11VQd4UPDa7UJrgrGx90xJOx.jpg",
+                "https://image.tmdb.org/t/p/w500/z7HLq35df6ZpRxdMAE0qE3Ge4SJ.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                6,
+                "Nobody",
+                "Hutch Mansell, a suburban dad, overlooked husband, nothing neighbor — a \"nobody.\" When two thieves break into his home one night, Hutch's unknown long-simmering rage is ignited and propels him on a brutal path that will uncover dark secrets he fought to leave behind.",
+                "https://image.tmdb.org/t/p/w500/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg",
+                "https://image.tmdb.org/t/p/w500/6zbKgwgaaCyyBXE4Sun4oWQfQmi.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                7,
+                "Sentinelle",
+                "Transferred home after a traumatizing combat mission, a highly trained French soldier uses her lethal skills to hunt down the man who hurt her sister.",
+                "https://image.tmdb.org/t/p/w500/AmUGn1rJ9XDDP6DYn9OA2uV8MIg.jpg",
+                "https://image.tmdb.org/t/p/w500/eTgQlyIQH0nA5BsmYpvCzSPAorg.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                8,
+                "Zack Snyder's Justice League",
+                "Determined to ensure Superman's ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.",
+                "https://image.tmdb.org/t/p/w500/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
+                "https://image.tmdb.org/t/p/w500/pcDc2WJAYGJTTvRSEIpRZwM3Ola.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                9,
+                "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
+                "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
+                "https://image.tmdb.org/t/p/w500/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg",
+                "https://image.tmdb.org/t/p/w500/xPpXYnCWfjkt3zzE0dpCNME1pXF.jpg"
+            )
+        )
+
+        movies.add(
+            DataEntity(
+                10,
+                "Miraculous World: Shanghai – The Legend of Ladydragon",
+                "To join Adrien in Shanghai, Marinette is going to visit her uncle Wang who is celebrating his anniversary. But, as soon as she arrives in China, her purse gets stolen with Tikki inside, whom she needs to secretly transform into Ladybug! Without money and alone in the immense city, Marinette accepts the help of a young and resourceful girl, Fei. The two girls will ally and discover the existence of a new magical jewel, the Prodigious. Hawk Moth, also present in Shanghai, seeks to finding it since a long time...",
+                "https://image.tmdb.org/t/p/w500/msI5a9TPnepx47JUb2vl88hb80R.jpg",
+                "https://image.tmdb.org/t/p/w500/lHhc60NXYzswU4TvKSo45nY9Jzs.jpg"
+            )
+        )
+        return movies
+    }
+
+    fun generateDummyTvShow(): List<DataEntity> {
         val tvShows = ArrayList<DataEntity>()
-
         tvShows.add(
             DataEntity(
-                "ts1",
-                "Arrow",
-                "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
-                "2012",
-                "Crime, Drama, Action & Adventure",
-                R.drawable.poster_arrow
+                1,
+                "The Falcon and the Winter Soldier",
+                "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+                "https://image.tmdb.org/t/p/w500/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+                "https://image.tmdb.org/t/p/w500/b0WmHGc8LHTdGCVzxRb3IBMur57.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts2",
-                "Family Guy",
-                "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
-                "1999",
-                "Animation, Comedy",
-                R.drawable.poster_family_guy
+                2,
+                "Invincible",
+                "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his father’s tutelage.",
+                "https://image.tmdb.org/t/p/w500/yDWJYRAwMNKbIYT8ZB33qy84uzO.jpg",
+                "https://image.tmdb.org/t/p/w500/6UH52Fmau8RPsMAbQbjwN3wJSCj.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts3",
+                3,
+                "Selena: The Series",
+                "As Mexican-American Tejano singer Selena comes of age and realizes her dreams, she and her family make tough choices to hold on to love and music.",
+                "https://image.tmdb.org/t/p/w500/mYsWyfiIMxx4HDm0Wck7oJ9ckez.jpg",
+                "https://image.tmdb.org/t/p/w500/Wu8kh7oyvaIfkNyMJyJHCamh5L.jpg"
+            )
+        )
+
+        tvShows.add(
+            DataEntity(
+                4,
                 "The Flash",
                 "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
-                "2014",
-                "Drama, Sci-FI & Fantasy",
-                R.drawable.poster_flash
+                "https://image.tmdb.org/t/p/w500/lJA2RCMfsWoskqlQhXPSLFQGXEJ.jpg",
+                "https://image.tmdb.org/t/p/w500/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts4",
-                "Game Of Thrones",
-                "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
-                "2011",
-                "Sci-Fi & Fantasy, Drama, Action & Adventure",
-                R.drawable.poster_god
+                5,
+                "The Good Doctor",
+                "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
+                "https://image.tmdb.org/t/p/w500/53P8oHo9cfOsgb1cLxBi4pFY0ja.jpg",
+                "https://image.tmdb.org/t/p/w500/mZjZgY6ObiKtVuKVDrnS9VnuNlE.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts5",
-                "Doom Patrol",
-                "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
-                "2019",
-                "Sci-Fi & Fantasy, Comedy, Drama",
-                R.drawable.poster_doom_patrol
+                6,
+                "The Handmaid's Tale",
+                "Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship. A TV adaptation of Margaret Atwood's novel.",
+                "https://image.tmdb.org/t/p/w500/oIkxqt6ug5zT5ZSUUyc1Iqopf02.jpg",
+                "https://image.tmdb.org/t/p/w500/hNiGqLsiD30C194lci7VYDmciHD.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts6",
-                "Supergirl",
-                "Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.",
-                "2015",
-                "Drama, Sci-Fi & Fantasy, Action & Adventure",
-                R.drawable.poster_supergirl
+                7,
+                "Grey's Anatomy",
+                "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
+                "https://image.tmdb.org/t/p/w500/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "https://image.tmdb.org/t/p/w500/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts7",
-                "The Simpsons",
-                "Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.",
-                "1989",
-                "Family, Animation, Comedy",
-                R.drawable.poster_the_simpson
+                8,
+                "Luis Miguel: The Series",
+                "The series dramatizes the life story of Mexican superstar singer Luis Miguel, who has captivated audiences in Latin America and beyond for decades.",
+                "https://image.tmdb.org/t/p/w500/34FaY8qpjBAVysSfrJ1l7nrAQaD.jpg",
+                "https://image.tmdb.org/t/p/w500/wkyzeBBKLhSg1Oqhky5yoiFF2hG.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts8",
-                "The Walking Dead",
-                "Sheriff's deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.",
-                "2010",
-                "Action & Adventure, Drama, Sci-Fi & Fantasy",
-                R.drawable.poster_the_walking_dead
+                9,
+                "The Bad Batch",
+                "Follow the elite and experimental Clones of the Bad Batch as they find their way in a rapidly changing galaxy in the aftermath of the Clone Wars.",
+                "https://image.tmdb.org/t/p/w500/WjQmEWFrOf98nT5aEfUfVYz9N2.jpg",
+                "https://image.tmdb.org/t/p/w500/WjQmEWFrOf98nT5aEfUfVYz9N2.jpg"
             )
         )
 
         tvShows.add(
             DataEntity(
-                "ts9",
-                "Supernatural",
-                "When they were boys, Sam and Dean Winchester lost their mother to a mysterious and demonic supernatural force. Subsequently, their father raised them to be soldiers. He taught them about the paranormal evil that lives in the dark corners and on the back roads of America ... and he taught them how to kill it. Now, the Winchester brothers crisscross the country in their '67 Chevy Impala, battling every kind of supernatural threat they encounter along the way.",
-                "2005",
-                "Drama, Mystery, Sci-Fi & Fantasy",
-                R.drawable.poster_supernatural
-            )
-        )
-
-        tvShows.add(
-            DataEntity(
-                "ts10",
-                "Naruto Shippuden",
-                "Naruto Shippuuden is the continuation of the original animated TV series Naruto.The story revolves around an older and slightly more matured Uzumaki Naruto and his quest to save his friend Uchiha Sasuke from the grips of the snake-like Shinobi, Orochimaru. After 2 and a half years Naruto finally returns to his village of Konoha, and sets about putting his ambitions to work, though it will not be easy, as He has amassed a few (more dangerous) enemies, in the likes of the shinobi organization; Akatsuki.",
-                "2007",
-                "Animation, Action & Adventure, Sci-Fi & Fantasy",
-                R.drawable.poster_naruto_shipudden
+                10,
+                "Lucifer",
+                "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",
+                "https://image.tmdb.org/t/p/w500/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+                "https://image.tmdb.org/t/p/w500/ta5oblpMlEcIPIS2YGcq9XEkWK2.jpg"
             )
         )
         return tvShows

@@ -1,6 +1,6 @@
 package com.maulnad.moviecatalogue.ui.home.content
 
-import com.maulnad.moviecatalogue.model.DataEntity
+import com.maulnad.moviecatalogue.data.model.DataEntity
 
 interface ContentCallback {
 

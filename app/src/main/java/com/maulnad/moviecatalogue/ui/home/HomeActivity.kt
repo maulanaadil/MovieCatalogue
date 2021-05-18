@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.maulnad.moviecatalogue.R
-import com.maulnad.moviecatalogue.SettingActivity
+import com.maulnad.moviecatalogue.ui.menu.setting.SettingActivity
 import com.maulnad.moviecatalogue.databinding.ActivityHomeBinding
 
 

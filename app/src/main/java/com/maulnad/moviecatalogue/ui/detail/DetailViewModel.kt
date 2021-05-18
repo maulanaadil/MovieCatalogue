@@ -1,40 +1,27 @@
 package com.maulnad.moviecatalogue.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.maulnad.moviecatalogue.model.DataEntity
-import com.maulnad.moviecatalogue.utils.DataDummy
+import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
+import kotlin.properties.Delegates
 
-class DetailViewModel : ViewModel() {
-    private lateinit var movieId: String
-    private lateinit var tvShowId: String
+class DetailViewModel(private val catalogueRepository: MovieCatalogueRepository) : ViewModel() {
+    private var movieId by Delegates.notNull<Int>()
+    private var tvShowId by Delegates.notNull<Int>()
 
-    fun setMovieId(movieId: String) {
+
+    fun selectedMovie(movieId: Int) {
         this.movieId = movieId
     }
 
-    fun setTvShowId(tvShowId: String) {
+    fun selectedTvShow(tvShowId: Int) {
         this.tvShowId = tvShowId
     }
 
-    fun getDetailMovie(): DataEntity {
-        lateinit var movie: DataEntity
-        val movieEntities = DataDummy.generateDummyMovies()
-        for (movieEntity in movieEntities) {
-            if (movieEntity.movieId == movieId) {
-                movie = movieEntity
-            }
-        }
-        return movie
-    }
+    fun getDetailMovie(movieId: Int): LiveData<DataEntity> =
+        catalogueRepository.getDetailMovie(movieId)
 
-    fun getDetailTvShow(): DataEntity {
-        lateinit var tvShow: DataEntity
-        val tvShowEntities = DataDummy.generateDummyTvShows()
-        for (tvShowEntity in tvShowEntities) {
-            if (tvShowEntity.movieId == tvShowId) {
-                tvShow = tvShowEntity
-            }
-        }
-        return tvShow
-    }
+    fun getDetailTvShow(tvShowId: Int): LiveData<DataEntity> =
+        catalogueRepository.getDetailTvShow(tvShowId)
 }

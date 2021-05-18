@@ -1,23 +1,34 @@
 package com.maulnad.moviecatalogue.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.rule.ActivityTestRule
 import com.maulnad.moviecatalogue.R
 import com.maulnad.moviecatalogue.utils.DataDummy
-import org.junit.Rule
+import com.maulnad.moviecatalogue.utils.EspressoIdlingResources
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class HomeActivityTest {
     private val dummyMovie = DataDummy.generateDummyMovies()
-    private val dummyTvShow = DataDummy.generateDummyTvShows()
+    private val dummyTvShow = DataDummy.generateDummyTvShow()
 
-    @get:Rule
-    var activityRule = ActivityTestRule(HomeActivity::class.java)
+    @Before
+    fun setUp() {
+        ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResources.idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResources.idlingResource)
+    }
 
     @Test
     fun loadMovie() {
@@ -42,22 +53,14 @@ class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
 
-        onView(withId(R.id.tv_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyMovie[0].genre)))
-
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_desc)).check(matches(withText(dummyMovie[0].description)))
 
-        onView(withId(R.id.text_view2)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_view2)).check(matches(withText("Release")))
-
-        onView(withId(R.id.tv_release)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release)).check(matches(withText(dummyMovie[0].releaseDate)))
-
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_poster2)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -85,20 +88,11 @@ class HomeActivityTest {
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[0].title)))
 
-        onView(withId(R.id.tv_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_genre)).check(matches(withText(dummyTvShow[0].genre)))
-
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_desc)).check(matches(withText(dummyTvShow[0].description)))
-
-        onView(withId(R.id.text_view2)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_view2)).check(matches(withText("Release")))
-
-        onView(withId(R.id.tv_release)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_release)).check(matches(withText(dummyTvShow[0].releaseDate)))
 
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
     }
