@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorPrimaryVariant">@color/more_dark_blue</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">#09375C</item>
         <item name="android:windowBackground">@color/more_dark_blue</item>
         <item name="android:colorBackground">@color/more_dark_blue</item>
         <!-- Secondary brand color. -->

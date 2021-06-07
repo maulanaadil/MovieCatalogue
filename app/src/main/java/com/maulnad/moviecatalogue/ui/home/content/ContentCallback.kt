@@ -1,8 +1,11 @@
 package com.maulnad.moviecatalogue.ui.home.content
 
-import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 
 interface ContentCallback {
 
-    fun onItemClicked(data: DataEntity)
+    fun onItemMovieClicked(movie: MovieEntity)
+
+    fun onItemTvShowClicked(tvShow: TvShowEntity)
 }

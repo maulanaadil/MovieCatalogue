@@ -45,19 +45,19 @@ class HomeActivityTest {
         onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movies)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
+                1,
                 click()
             )
         )
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
+        onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[1].title)))
 
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc)).check(matches(withText(dummyMovie[0].description)))
+        onView(withId(R.id.tv_desc)).check(matches(withText(dummyMovie[1].description)))
 
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
         onView(withId(R.id.iv_poster2)).check(matches(isDisplayed()))
@@ -80,19 +80,19 @@ class HomeActivityTest {
         onView(withId(R.id.rv_tv_shows)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_shows)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
+                1,
                 click()
             )
         )
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[0].title)))
+        onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[3].title)))
 
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc)).check(matches(withText(dummyTvShow[0].description)))
+        onView(withId(R.id.tv_desc)).check(matches(withText(dummyTvShow[3].description)))
 
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
     }

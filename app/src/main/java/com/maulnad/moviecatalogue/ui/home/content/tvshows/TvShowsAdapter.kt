@@ -2,29 +2,38 @@ package com.maulnad.moviecatalogue.ui.home.content.tvshows
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
-import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.databinding.ItemsPosterBinding
 import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
 import com.maulnad.moviecatalogue.utils.Helper
 
-class TvShowsAdapter(private val contentCallback: ContentCallback) :
-    RecyclerView.Adapter<TvShowsAdapter.TvShowsViewHolder>() {
-    private var listTvShows = ArrayList<DataEntity>()
+class TvShowsAdapter() :
+    PagedListAdapter<TvShowEntity, TvShowsAdapter.TvShowsViewHolder>(DIFF_CALLBACK) {
+    private lateinit var onItemClickCallBack: OnItemCallBack
 
-    fun setTvShows(tvShows: List<DataEntity>?) {
-        if (tvShows == null) return
-        this.listTvShows.clear()
-        this.listTvShows.addAll(tvShows)
-        notifyDataSetChanged()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem.tvShowId == newItem.tvShowId
+            }
+
+            override fun areContentsTheSame(oldItem: TvShowEntity, newItem: TvShowEntity): Boolean {
+                return oldItem == newItem
+            }
+
+        }
     }
 
     inner class TvShowsViewHolder(private val binding: ItemsPosterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvShows: DataEntity) {
+        fun bind(tvShows: TvShowEntity) {
             with(binding) {
                 tvTitle.text = tvShows.title
 
@@ -37,7 +46,7 @@ class TvShowsAdapter(private val contentCallback: ContentCallback) :
                     .into(ivPoster)
 
                 itemView.setOnClickListener {
-                    contentCallback.onItemClicked(tvShows)
+                    onItemClickCallBack.onItemClicked(tvShows.tvShowId)
                 }
             }
         }
@@ -53,10 +62,17 @@ class TvShowsAdapter(private val contentCallback: ContentCallback) :
     }
 
     override fun onBindViewHolder(holder: TvShowsAdapter.TvShowsViewHolder, position: Int) {
-        val tvShows = listTvShows[position]
-        holder.bind(tvShows)
+        val tvShows = getItem(position)
+        if (tvShows != null) {
+            holder.bind(tvShows)
+        }
     }
 
-    override fun getItemCount(): Int = listTvShows.size
+    fun setOnItemClickCallback(onItemCallBack: OnItemCallBack) {
+        this.onItemClickCallBack = onItemCallBack
+    }
 
+    interface OnItemCallBack {
+        fun onItemClicked(tvShowId: Int)
+    }
 }

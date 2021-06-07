@@ -10,4 +10,6 @@
     <color name="dark_blue">#032541</color>
     <color name="more_dark_blue">#041A2C</color>
     <color name="placeholder">#A1A1A1</color>
+    <color name="selected_icon_green">#FF90CEA1</color>
+    <color name="default_icon_color_grey">#A4AAA6</color>
 </resources>

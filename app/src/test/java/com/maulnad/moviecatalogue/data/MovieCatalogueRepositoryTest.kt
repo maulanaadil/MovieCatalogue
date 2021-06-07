@@ -21,7 +21,7 @@ class MovieCatalogueRepositoryTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val remote = Mockito.mock(RemoteDataSource::class.java)
-    private val movieCatalogueRepository = FakeMovieCatalogueRepository(remote)
+    private val movieCatalogueRepository = FakeCatalogueRepository(remote)
 
     private val listMovieResponse = DataDummy.generateDataDummyMoviesResponse()
     private val movieId = listMovieResponse[0].id
@@ -52,7 +52,7 @@ class MovieCatalogueRepositoryTest {
                 .onAllTvShowReceived(listTvResponse)
             null
         }.`when`(remote).getAllTvShows(any())
-        val tvEntities = LiveDataTestUtils.getValue(movieCatalogueRepository.getTvShow())
+        val tvEntities = LiveDataTestUtils.getValue(movieCatalogueRepository.getAllTvShow())
         verify(remote).getAllTvShows(any())
         assertNotNull(tvEntities)
         assertEquals(listTvResponse.size.toLong(), tvEntities.size.toLong())
@@ -85,6 +85,6 @@ class MovieCatalogueRepositoryTest {
 
         verify(remote).getDetailTvShow(any(), eq(tvShowId))
         assertNotNull(tvShowEntities)
-        assertEquals(tvShowResponses.id, tvShowEntities.movieId)
+        assertEquals(tvShowResponses.id, tvShowEntities.tvShowId)
     }
 }

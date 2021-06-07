@@ -1,10 +1,9 @@
 package com.maulnad.moviecatalogue.utils
 
-import com.maulnad.moviecatalogue.data.model.DataEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.data.source.remote.response.MovieDetailResponse
 import com.maulnad.moviecatalogue.data.source.remote.response.TvShowDetailResponse
-import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_SIZE_ENDPOINT
-import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_TMDD_ENDPOINT
 
 object DataDummy {
 
@@ -218,12 +217,12 @@ object DataDummy {
         return tvShows
     }
 
-    fun generateDummyMovies(): List<DataEntity> {
+    fun generateDummyMovies(): List<MovieEntity> {
 
-        val movies = ArrayList<DataEntity>()
+        val movies = ArrayList<MovieEntity>()
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 1,
                 "Tom Clancy's Without Remorse",
                 "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
@@ -233,7 +232,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 2,
                 "Mortal Kombat",
                 "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
@@ -243,7 +242,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 3,
                 "Vanquish",
                 "Victoria is a young mother trying to put her dark past as a Russian drug courier behind her, but retired cop Damon forces Victoria to do his bidding by holding her daughter hostage. Now, Victoria must use guns, guts and a motorcycle to take out a series of violent gangsters—or she may never see her child again.",
@@ -253,7 +252,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 4,
                 "Godzilla vs. Kong",
                 "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
@@ -263,7 +262,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 5,
                 "Thunder Force",
                 "In a world where supervillains are commonplace, two estranged childhood best friends reunite after one devises a treatment that gives them powers to protect their city.",
@@ -273,7 +272,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 6,
                 "Nobody",
                 "Hutch Mansell, a suburban dad, overlooked husband, nothing neighbor — a \"nobody.\" When two thieves break into his home one night, Hutch's unknown long-simmering rage is ignited and propels him on a brutal path that will uncover dark secrets he fought to leave behind.",
@@ -283,7 +282,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 7,
                 "Sentinelle",
                 "Transferred home after a traumatizing combat mission, a highly trained French soldier uses her lethal skills to hunt down the man who hurt her sister.",
@@ -293,7 +292,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 8,
                 "Zack Snyder's Justice League",
                 "Determined to ensure Superman's ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.",
@@ -303,7 +302,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 9,
                 "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
                 "Tanjirō Kamado, joined with Inosuke Hashibira, a boy raised by boars who wears a boar's head, and Zenitsu Agatsuma, a scared boy who reveals his true power when he sleeps, boards the Infinity Train on a new mission with the Fire Hashira, Kyōjurō Rengoku, to defeat a demon who has been tormenting the people and killing the demon slayers who oppose it!",
@@ -313,7 +312,7 @@ object DataDummy {
         )
 
         movies.add(
-            DataEntity(
+            MovieEntity(
                 10,
                 "Miraculous World: Shanghai – The Legend of Ladydragon",
                 "To join Adrien in Shanghai, Marinette is going to visit her uncle Wang who is celebrating his anniversary. But, as soon as she arrives in China, her purse gets stolen with Tikki inside, whom she needs to secretly transform into Ladybug! Without money and alone in the immense city, Marinette accepts the help of a young and resourceful girl, Fei. The two girls will ally and discover the existence of a new magical jewel, the Prodigious. Hawk Moth, also present in Shanghai, seeks to finding it since a long time...",
@@ -324,10 +323,10 @@ object DataDummy {
         return movies
     }
 
-    fun generateDummyTvShow(): List<DataEntity> {
-        val tvShows = ArrayList<DataEntity>()
+    fun generateDummyTvShow(): List<TvShowEntity> {
+        val tvShows = ArrayList<TvShowEntity>()
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 1,
                 "The Falcon and the Winter Soldier",
                 "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
@@ -337,7 +336,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 2,
                 "Invincible",
                 "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his father’s tutelage.",
@@ -347,7 +346,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 3,
                 "Selena: The Series",
                 "As Mexican-American Tejano singer Selena comes of age and realizes her dreams, she and her family make tough choices to hold on to love and music.",
@@ -357,7 +356,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 4,
                 "The Flash",
                 "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
@@ -367,7 +366,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 5,
                 "The Good Doctor",
                 "A young surgeon with Savant syndrome is recruited into the surgical unit of a prestigious hospital. The question will arise: can a person who doesn't have the ability to relate to people actually save their lives",
@@ -377,7 +376,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 6,
                 "The Handmaid's Tale",
                 "Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship. A TV adaptation of Margaret Atwood's novel.",
@@ -387,7 +386,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 7,
                 "Grey's Anatomy",
                 "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
@@ -397,7 +396,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 8,
                 "Luis Miguel: The Series",
                 "The series dramatizes the life story of Mexican superstar singer Luis Miguel, who has captivated audiences in Latin America and beyond for decades.",
@@ -407,7 +406,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 9,
                 "The Bad Batch",
                 "Follow the elite and experimental Clones of the Bad Batch as they find their way in a rapidly changing galaxy in the aftermath of the Clone Wars.",
@@ -417,7 +416,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            DataEntity(
+            TvShowEntity(
                 10,
                 "Lucifer",
                 "Bored and unhappy as the Lord of Hell, Lucifer Morningstar abandoned his throne and retired to Los Angeles, where he has teamed up with LAPD detective Chloe Decker to take down criminals. But the longer he's away from the underworld, the greater the threat that the worst of humanity could escape.",

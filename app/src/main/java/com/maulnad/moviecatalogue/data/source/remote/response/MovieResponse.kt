@@ -3,15 +3,18 @@ package com.maulnad.moviecatalogue.data.source.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(
-	@SerializedName("page")
-	val page: Int,
+	@SerializedName("id")
+	val id: Int,
 
-	@SerializedName("results")
-	val results: List<MovieDetailResponse>,
+	@SerializedName("title")
+	val title: String,
 
-	@SerializedName("total_pages")
-	val totalPages: Int,
+	@SerializedName("overview")
+	val overview: String,
 
-	@SerializedName("total_results")
-	val totalResults: Int
+	@SerializedName("poster_path")
+	val posterPath: String,
+
+	@SerializedName("backdrop_path")
+	val backgroundPath: String,
 )

@@ -3,8 +3,8 @@ package com.maulnad.moviecatalogue.ui.home.content.tvshows
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.maulnad.moviecatalogue.data.model.DataEntity
-import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
+import com.maulnad.moviecatalogue.data.source.CatalogueRepository
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import junit.framework.Assert.assertEquals
@@ -25,10 +25,10 @@ class TvShowsViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var movieCatalogueRepository: MovieCatalogueRepository
+    private lateinit var movieCatalogueRepository: CatalogueRepository
 
     @Mock
-    private lateinit var observer: Observer<List<DataEntity>>
+    private lateinit var observer: Observer<List<TvShowEntity>>
 
     @Before
     fun setUp() {
@@ -38,14 +38,14 @@ class TvShowsViewModelTest {
     @Test
     fun getTvShows() {
         val dummyTvShows = DataDummy.generateDummyTvShow()
-        val tvShows = MutableLiveData<List<DataEntity>>()
+        val tvShows = MutableLiveData<List<TvShowEntity>>()
         tvShows.value = dummyTvShows
 
-        `when`(movieCatalogueRepository.getTvShow()).thenReturn(tvShows)
+        `when`(movieCatalogueRepository.getAllTvShow()).thenReturn(tvShows)
 
         val tvShowEntities = viewModel.getTvShows().value
 
-        verify(movieCatalogueRepository).getTvShow()
+        verify(movieCatalogueRepository).getAllTvShow()
         assertNotNull(tvShowEntities)
         assertEquals(10, tvShowEntities?.size)
 

@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    ext.kotlin_version = "1.5.0"
     repositories {
         google()
         jcenter()
@@ -27,22 +27,34 @@ task clean(type: Delete) {
 
 ext {
     //dependencies version
-    appCompatVersion = '1.2.0'
+    appCompatVersion = '1.3.0'
     coreVersion = '1.3.2'
     constraintLayoutVersion = '2.0.4'
-    junitVersion = '4.13.1'
+
+    //testing
+    junitVersion = '4.13.2'
     junitExtversion = '1.1.2'
     espressoVersion = '3.3.0'
     androidTestVersion = '1.3.0'
     androidXTestVersion = '1.2.0'
-    retrofitVersion = '2.7.1'
-    okHttp3_version = "4.4.0"
-    mockito_version = "2.23.4"
+    mockito_version = "3.6.0"
     coroutine_version = "1.3.1"
     mockitoKotlinVersion = '2.2.0'
     androidCoreTestVersion = '2.1.0'
 
-    materialVersion = '1.2.1'
+    //api
+    retrofitVersion = '2.9.0'
+    okHttp3_version = "4.9.0"
+
+    //ui
+    materialVersion = '1.3.0'
     recyclerViewVersion = '1.1.0'
-    glideVersion = '4.11.0'
+    glideVersion = '4.12.0'
+
+    //room
+    roomVersion = '2.2.3'
+    roomRuntimeVersion = '2.3.0'
+
+    // paging
+    pagingVersion = '3.0.0'
 }

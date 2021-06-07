@@ -2,9 +2,11 @@ package com.maulnad.moviecatalogue.ui.home.content.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.maulnad.moviecatalogue.data.model.DataEntity
-import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
+import androidx.paging.PagedList
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.CatalogueRepository
+import com.maulnad.moviecatalogue.vo.Resource
 
-class MoviesViewModel(private val catalogueRepository: MovieCatalogueRepository) : ViewModel() {
-    fun getMovies(): LiveData<List<DataEntity>> = catalogueRepository.getAllMovie()
+class MoviesViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+    fun getMovies(): LiveData<Resource<PagedList<MovieEntity>>> = catalogueRepository.getAllMovie()
 }

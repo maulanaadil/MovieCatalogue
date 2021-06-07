@@ -16,14 +16,15 @@
         <activity
             android:name=".ui.menu.setting.SettingActivity"
             android:parentActivityName=".ui.home.HomeActivity" />
-
-        <activity android:name=".ui.splash.SplashScreen">
+        <activity
+            android:name=".ui.splash.SplashScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.detail.DetailPageActivity"
             android:parentActivityName=".ui.home.HomeActivity">
@@ -31,9 +32,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.maulnad.moviecatalogue.ui.home.HomeActivity" />
         </activity>
-
-        <activity android:name=".ui.home.HomeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

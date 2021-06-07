@@ -1,15 +1,14 @@
-package com.maulnad.moviecatalogue.ui.home
+package com.maulnad.moviecatalogue.ui.home.content.favourite
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.maulnad.moviecatalogue.R
-import com.maulnad.moviecatalogue.ui.home.content.movies.MoviesFragment
-import com.maulnad.moviecatalogue.ui.home.content.tvshows.TvShowsFragment
+import com.maulnad.moviecatalogue.ui.home.content.favourite.content.movies.FavouriteMoviesFragment
+import com.maulnad.moviecatalogue.ui.home.content.favourite.content.tvhows.FavouriteTvShowsFragment
 
-class SectionsPageAdapter(private val mContext: Context, fm: FragmentManager) :
+class FavouritePagerAdapter(private val mContext: FavouriteFragment, fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
@@ -18,12 +17,12 @@ class SectionsPageAdapter(private val mContext: Context, fm: FragmentManager) :
 
     }
 
-    override fun getCount(): Int = 2
+    override fun getCount(): Int = TAB_TITLE.size
 
     override fun getItem(position: Int): Fragment =
         when (position) {
-            0 -> MoviesFragment()
-            1 -> TvShowsFragment()
+            0 -> FavouriteMoviesFragment()
+            1 -> FavouriteTvShowsFragment()
             else -> Fragment()
         }
 

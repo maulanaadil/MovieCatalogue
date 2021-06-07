@@ -1,27 +1,47 @@
 package com.maulnad.moviecatalogue.ui.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.maulnad.moviecatalogue.data.model.DataEntity
-import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
-import kotlin.properties.Delegates
+import com.maulnad.moviecatalogue.data.source.CatalogueRepository
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.maulnad.moviecatalogue.vo.Resource
 
-class DetailViewModel(private val catalogueRepository: MovieCatalogueRepository) : ViewModel() {
-    private var movieId by Delegates.notNull<Int>()
-    private var tvShowId by Delegates.notNull<Int>()
+class DetailViewModel(private val catalogueRepository: CatalogueRepository) : ViewModel() {
+    val movieId = MutableLiveData<Int>()
+    val tvShowId = MutableLiveData<Int>()
 
-
-    fun selectedMovie(movieId: Int) {
-        this.movieId = movieId
+    fun setSelectedMovie(movieId: Int) {
+        this.movieId.value = movieId
     }
 
-    fun selectedTvShow(tvShowId: Int) {
-        this.tvShowId = tvShowId
+    fun setSelectedTvShow(tvShowId: Int) {
+        this.tvShowId.value = tvShowId
     }
 
-    fun getDetailMovie(movieId: Int): LiveData<DataEntity> =
-        catalogueRepository.getDetailMovie(movieId)
+    var detailMovie: LiveData<Resource<MovieEntity>> = Transformations.switchMap(movieId) {
+        catalogueRepository.getDetailMovie(it)
+    }
 
-    fun getDetailTvShow(tvShowId: Int): LiveData<DataEntity> =
-        catalogueRepository.getDetailTvShow(tvShowId)
+    var detailTvShow: LiveData<Resource<TvShowEntity>> = Transformations.switchMap(tvShowId) {
+        catalogueRepository.getDetailTvShow(it)
+    }
+
+    fun setFavouriteMovie() {
+        val movieResource = detailMovie.value
+        if (movieResource?.data != null) {
+            val newState = !movieResource.data.favourite
+            catalogueRepository.setFavouriteMovie(movieResource.data, newState)
+        }
+    }
+
+    fun setFavouriteTvShow() {
+        val tvShowResource = detailTvShow.value
+        if (tvShowResource?.data != null) {
+            val newState = !tvShowResource.data.favourite
+            catalogueRepository.setFavouriteTvShow(tvShowResource.data, newState)
+        }
+    }
 }

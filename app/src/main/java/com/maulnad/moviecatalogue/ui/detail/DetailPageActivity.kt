@@ -1,18 +1,24 @@
 package com.maulnad.moviecatalogue.ui.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.databinding.ActivityDetailPageBinding
 import com.maulnad.moviecatalogue.databinding.ContentDetailPageBinding
-import com.maulnad.moviecatalogue.data.model.DataEntity
 import com.maulnad.moviecatalogue.utils.Helper
 import com.maulnad.moviecatalogue.viewmodel.ViewModelFactory
+import com.maulnad.moviecatalogue.vo.Status
 
 class DetailPageActivity : AppCompatActivity() {
 
@@ -21,73 +27,210 @@ class DetailPageActivity : AppCompatActivity() {
         const val EXTRA_TV = "extra_tv"
     }
 
-    private lateinit var detailContentBinding: ContentDetailPageBinding
+    private lateinit var activityDetailPageBinding: ActivityDetailPageBinding
 
+    private lateinit var detailContentBinding: ContentDetailPageBinding
+    private lateinit var viewModel: DetailViewModel
+
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityDetailPageBinding = ActivityDetailPageBinding.inflate(layoutInflater)
+        activityDetailPageBinding = ActivityDetailPageBinding.inflate(layoutInflater)
         detailContentBinding = activityDetailPageBinding.detailContent
 
         setContentView(activityDetailPageBinding.root)
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.title_detail)
-
-        val factory = ViewModelFactory.getInstance()
-        val viewModel = ViewModelProvider(this@DetailPageActivity, factory)[DetailViewModel::class.java]
-
-        val extras = intent.extras
-        if (extras != null) {
-            val movieId = extras.getInt(EXTRA_MOVIE)
-            val tvShowId = extras.getInt(EXTRA_TV)
 
 
-            if (movieId != null) {
-                activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
+        val factory = ViewModelFactory.getInstance(applicationContext)
+        viewModel = ViewModelProvider(this@DetailPageActivity, factory)[DetailViewModel::class.java]
 
-                viewModel.getDetailMovie(movieId).observe(this, { movies ->
-                    activityDetailPageBinding.progressBar.visibility = View.GONE
-                    activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+//        val extras = intent.extras
+//        if (extras != null) {
+            val movieId = intent.getIntExtra(EXTRA_MOVIE, 0)
+            val tvShowId = intent.getIntExtra(EXTRA_TV, 0)
 
-                    populateMovies(movies)
+            if (intent.hasExtra(EXTRA_MOVIE)) {
+                if (movieId != null) {
+                    viewModel.setSelectedMovie(movieId)
+                    viewModel.detailMovie.observe(this, { movies ->
+                        when (movies.status) {
+                            Status.LOADING -> {
+                                activityDetailPageBinding.progressBar.visibility = View.VISIBLE
+                                activityDetailPageBinding.nestedScrollView.visibility = View.GONE
+                            }
+                            Status.SUCCESS -> {
+                                activityDetailPageBinding.progressBar.visibility = View.GONE
+                                activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                                movies.data?.let { populateMovies(it) }
+
+                            }
+                            Status.ERROR -> {
+                                activityDetailPageBinding.progressBar.visibility = View.GONE
+                                activityDetailPageBinding.nestedScrollView.visibility = View.GONE
+                                Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
+            } else
+                if (intent.hasExtra(EXTRA_TV)) {
+                    if (tvShowId != null) {
+                         viewModel.setSelectedTvShow(tvShowId)
+                         viewModel.detailTvShow.observe(this, { tvShow ->
+                             when (tvShow.status) {
+                                 Status.LOADING -> {
+                                     activityDetailPageBinding.progressBar.visibility = View.VISIBLE
+                                     activityDetailPageBinding.nestedScrollView.visibility = View.GONE
+                                 }
+                                 Status.SUCCESS -> {
+                                     activityDetailPageBinding.progressBar.visibility = View.GONE
+                                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                                     tvShow.data?.let { populateTvShow(it) }
+                                 }
+                                 Status.ERROR -> {
+                                     activityDetailPageBinding.progressBar.visibility = View.GONE
+                                     activityDetailPageBinding.nestedScrollView.visibility = View.GONE
+                                     Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
+                                 }
+                             }
+                         })
+                    }
+                }
+//        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        this.menu = menu
+        if (intent.hasExtra(EXTRA_MOVIE)) {
+            viewModel.detailMovie.observe(this, { movie ->
+                when (movie.status) {
+                    Status.LOADING -> {
+                        activityDetailPageBinding.progressBar.visibility = View.VISIBLE
+                        activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
+                    }
+                    Status.SUCCESS -> if (movie.data != null) {
+                        activityDetailPageBinding.progressBar.visibility = View.GONE
+                        activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                        val state = movie.data.favourite
+                        setFavouriteState(state)
+                    }
+                    Status.ERROR -> {
+                        activityDetailPageBinding.progressBar.visibility = View.INVISIBLE
+                        activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
+                        Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else
+            if (intent.hasExtra(EXTRA_TV)) {
+                viewModel.detailTvShow.observe(this, { tvShow ->
+                    when (tvShow.status) {
+                        Status.LOADING -> {
+                            activityDetailPageBinding.progressBar.visibility = View.VISIBLE
+                            activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
+                        }
+                        Status.SUCCESS -> if (tvShow.data != null) {
+                            activityDetailPageBinding.progressBar.visibility = View.GONE
+                            activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                            val state = tvShow.data.favourite
+                            setFavouriteState(state)
+                        }
+                        Status.ERROR -> {
+                            activityDetailPageBinding.progressBar.visibility = View.INVISIBLE
+                            activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
+                            Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 })
             }
+        return true
+    }
 
-
-            if (tvShowId != null) {
-                activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
-
-                viewModel.getDetailTvShow(tvShowId).observe(this, { tvShows ->
-                    activityDetailPageBinding.progressBar.visibility = View.GONE
-                    activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-
-                    populateMovies(tvShows)
-                })
-            }
-
-
+    private fun setFavouriteState(state: Boolean?) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_favourite)
+        if (state == true) {
+            menuItem?.icon= ContextCompat.getDrawable(this, R.drawable.ic_favourited)
+        } else {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favourite)
         }
     }
 
-    private fun populateMovies(dataEntity: DataEntity) {
-        detailContentBinding.tvTitle.text = dataEntity.title
-        detailContentBinding.tvDesc.text = dataEntity.description
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (intent.hasExtra(EXTRA_MOVIE)) {
+            if (item.itemId == R.id.action_favourite) {
+                viewModel.setFavouriteMovie()
+                return true
+            }
+        } else
+            if (intent.hasExtra(EXTRA_TV)) {
+                if (item.itemId == R.id.action_favourite) {
+                    viewModel.setFavouriteTvShow()
+                    return true
+                }
+            }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun populateMovies(movieEntity: MovieEntity) {
+        detailContentBinding.tvTitle.text = movieEntity.title
+        detailContentBinding.tvDesc.text = movieEntity.description
 
         Glide.with(this)
-            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + dataEntity.backDrop)
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + movieEntity.backDrop)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+            )
             .into(detailContentBinding.ivPoster)
 
         Glide.with(this)
-            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + dataEntity.poster)
-            .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + movieEntity.poster)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+            )
             .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
             .into(detailContentBinding.ivPoster2)
     }
+
+    private fun populateTvShow(tvShowEntity: TvShowEntity) {
+        detailContentBinding.tvTitle.text = tvShowEntity.title
+        detailContentBinding.tvDesc.text = tvShowEntity.description
+
+        Glide.with(this)
+            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + tvShowEntity.backDrop)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+            )
+            .into(detailContentBinding.ivPoster)
+
+        Glide.with(this)
+            .load(Helper.IMAGE_URL_TMDD_ENDPOINT + Helper.IMAGE_URL_SIZE_ENDPOINT + tvShowEntity.poster)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error)
+            )
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+            .into(detailContentBinding.ivPoster2)
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        super.onBackPressed()
+        return true
+    }
+
 }
+
+
+
+
+
+
 

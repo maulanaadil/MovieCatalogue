@@ -3,8 +3,9 @@ package com.maulnad.moviecatalogue.ui.detail
 import  androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.maulnad.moviecatalogue.data.model.DataEntity
-import com.maulnad.moviecatalogue.data.source.MovieCatalogueRepository
+import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
+import com.maulnad.moviecatalogue.data.source.CatalogueRepository
+import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
@@ -24,20 +25,20 @@ class DetailViewModelTest {
     private val movieId = dummyMovie.movieId
 
     private  val dummyTvShow = DataDummy.generateDummyTvShow()[0]
-    private val tvShowId = dummyTvShow.movieId
+    private val tvShowId = dummyTvShow.tvShowId
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var repository: MovieCatalogueRepository
+    private lateinit var repository: CatalogueRepository
 
 
     @Mock
-    private lateinit var moviesObserver: Observer<DataEntity>
+    private lateinit var moviesObserver: Observer<MovieEntity>
 
     @Mock
-    private lateinit var tvShowObserver: Observer<DataEntity>
+    private lateinit var tvShowObserver: Observer<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -48,12 +49,12 @@ class DetailViewModelTest {
 
     @Test
     fun getDetailMovie() {
-        val movie = MutableLiveData<DataEntity>()
+        val movie = MutableLiveData<MovieEntity>()
         movie.value = dummyMovie
 
         `when`(repository.getDetailMovie(movieId)).thenReturn(movie)
 
-        val movieEntities = viewModel.getDetailMovie(movieId).value as DataEntity
+        val movieEntities = viewModel.getDetailMovie(movieId).value as MovieEntity
 
         assertNotNull(movieEntities)
         assertEquals(dummyMovie.title, movieEntities.title)
@@ -66,11 +67,11 @@ class DetailViewModelTest {
 
     @Test
     fun getDetailTvShow() {
-        val tvShow = MutableLiveData<DataEntity>()
+        val tvShow = MutableLiveData<TvShowEntity>()
         tvShow.value = dummyTvShow
 
         `when`(repository.getDetailTvShow(tvShowId)).thenReturn(tvShow)
-        val tvShowEntities = viewModel.getDetailTvShow(tvShowId).value as DataEntity
+        val tvShowEntities = viewModel.getDetailTvShow(tvShowId).value as TvShowEntity
         assertNotNull(tvShowEntities)
         assertEquals(dummyTvShow.title, tvShowEntities.title)
         assertEquals(dummyTvShow.description, tvShowEntities.description)
