@@ -87,10 +87,12 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidTestVersion"
     androidTestImplementation "androidx.test.ext:junit:$junitExtversion"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
+
+    // noinspection GradleDependency
+    implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
 
     //Coroutine Dependency
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"

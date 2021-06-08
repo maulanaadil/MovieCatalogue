@@ -8,37 +8,38 @@ import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
 import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert
 import org.junit.Before
+
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class DetailViewModelTest {
-
-    @get: Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
-
     private lateinit var viewModel: DetailViewModel
 
     private val dummyMovie = DataDummy.generateDummyMovies()[0]
     private val movieId = dummyMovie.movieId
+
     private val dummyTvShow = DataDummy.generateDummyTvShow()[0]
     private val tvShowId = dummyTvShow.tvShowId
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var catalogueRepository: CatalogueRepository
 
     @Mock
-    private lateinit var moviesObserver: Observer<MovieEntity>
+    private lateinit var observerMovie: Observer<MovieEntity>
 
     @Mock
-    private lateinit var tvShowObserver: Observer<TvShowEntity>
+    private lateinit var observerTvShow: Observer<TvShowEntity>
 
     @Before
     fun setUp() {
@@ -48,40 +49,44 @@ class DetailViewModelTest {
     }
 
     @Test
-    fun getDetailMovie() {
-        val movie = MutableLiveData<MovieEntity>()
-        movie.value = dummyMovie
+    fun getMovieDetail() {
+        val movieDummy = MutableLiveData<MovieEntity>()
+        movieDummy.value = dummyMovie
 
-        `when`(catalogueRepository.getDetailMovie(movieId)).thenReturn(movie)
+        Mockito.`when`(catalogueRepository.getDetailMovie(movieId)).thenReturn(movieDummy)
 
-        val movieEntities = viewModel.detailMovie.value
+        val movieData = viewModel.detailMovie.value
 
-        assertNotNull(movieEntities)
-        assertEquals(dummyMovie.movieId, movieEntities?.movieId)
-        assertEquals(dummyMovie.title, movieEntities?.title)
-        assertEquals(dummyMovie.description, movieEntities?.description)
-        assertEquals(dummyMovie.poster, movieEntities?.poster)
-        assertEquals(dummyMovie.backDrop, movieEntities?.backDrop)
+        Assert.assertNotNull(movieData)
+        assertEquals(dummyMovie.movieId, movieData?.movieId)
+        assertEquals(dummyMovie.title, movieData?.title)
+        assertEquals(dummyMovie.description, movieData?.description)
+        assertEquals(dummyMovie.poster, movieData?.poster)
+        assertEquals(dummyMovie.backDrop, movieData?.backDrop)
 
-        viewModel.detailMovie.observeForever(moviesObserver)
-        verify(moviesObserver).onChanged(dummyMovie)
+        viewModel.detailMovie.observeForever(observerMovie)
+        verify(observerMovie).onChanged(dummyMovie)
+
     }
 
     @Test
-    fun getDetailTvShow() {
-        val tvShow = MutableLiveData<TvShowEntity>()
-        tvShow.value = dummyTvShow
+    fun getTvShowDetail() {
+        val tvShowDummy = MutableLiveData<TvShowEntity>()
+        tvShowDummy.value = dummyTvShow
 
-        `when`(catalogueRepository.getDetailTvShow(tvShowId)).thenReturn(tvShow)
-        val tvShowEntities = viewModel.detailTvShow.value
-        assertNotNull(tvShowEntities)
-        assertEquals(dummyTvShow.tvShowId, tvShowEntities?.tvShowId)
-        assertEquals(dummyTvShow.title, tvShowEntities?.title)
-        assertEquals(dummyTvShow.description, tvShowEntities?.description)
-        assertEquals(dummyTvShow.poster, tvShowEntities?.poster)
-        assertEquals(dummyTvShow.backDrop, tvShowEntities?.backDrop)
+        Mockito.`when`(catalogueRepository.getDetailTvShow(tvShowId)).thenReturn(tvShowDummy)
 
-        viewModel.detailTvShow.observeForever(tvShowObserver)
-        verify(tvShowObserver).onChanged(dummyTvShow)
+        val tvShow = viewModel.detailTvShow.value
+
+        Assert.assertNotNull(tvShow)
+        assertEquals(dummyMovie.movieId, tvShow?.tvShowId)
+        assertEquals(dummyMovie.title, tvShow?.title)
+        assertEquals(dummyMovie.description, tvShow?.description)
+        assertEquals(dummyMovie.poster, tvShow?.poster)
+        assertEquals(dummyMovie.backDrop, tvShow?.backDrop)
+
+        viewModel.detailTvShow.observeForever(observerTvShow)
+        verify(observerTvShow).onChanged(dummyTvShow)
+
     }
 }
