@@ -51,56 +51,34 @@ class DetailPageActivity : AppCompatActivity() {
 
 //        val extras = intent.extras
 //        if (extras != null) {
-            val movieId = intent.getIntExtra(EXTRA_MOVIE, 0)
-            val tvShowId = intent.getIntExtra(EXTRA_TV, 0)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE, 0)
+        val tvShowId = intent.getIntExtra(EXTRA_TV, 0)
 
-            if (intent.hasExtra(EXTRA_MOVIE)) {
-                if (movieId != null) {
-                    viewModel.setSelectedMovie(movieId)
-                    viewModel.detailMovie.observe(this, { movies ->
-                        when (movies.status) {
-                            Status.LOADING -> {
-                                activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                                activityDetailPageBinding.nestedScrollView.visibility = View.GONE
-                            }
-                            Status.SUCCESS -> {
-                                activityDetailPageBinding.progressBar.visibility = View.GONE
-                                activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                                movies.data?.let { populateMovies(it) }
+        activityDetailPageBinding.progressBar.visibility = View.VISIBLE
+        activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
 
-                            }
-                            Status.ERROR -> {
-                                activityDetailPageBinding.progressBar.visibility = View.GONE
-                                activityDetailPageBinding.nestedScrollView.visibility = View.GONE
-                                Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+        if (intent.hasExtra(EXTRA_MOVIE)) {
+            if (movieId != null) {
+                viewModel.setSelectedMovie(movieId)
+                viewModel.detailMovie.observe(this, {
+                    activityDetailPageBinding.progressBar.visibility = View.GONE
+                    activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                    populateMovies(it)
+                    setFavouriteState(it.favourite)
+                })
+            }
+        } else
+            if (intent.hasExtra(EXTRA_TV)) {
+                if (tvShowId != null) {
+                    viewModel.setSelectedTvShow(tvShowId)
+                    viewModel.detailTvShow.observe(this, {
+                        activityDetailPageBinding.progressBar.visibility = View.GONE
+                        activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                        populateTvShow(it)
+                        setFavouriteState(it.favourite)
                     })
                 }
-            } else
-                if (intent.hasExtra(EXTRA_TV)) {
-                    if (tvShowId != null) {
-                         viewModel.setSelectedTvShow(tvShowId)
-                         viewModel.detailTvShow.observe(this, { tvShow ->
-                             when (tvShow.status) {
-                                 Status.LOADING -> {
-                                     activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                                     activityDetailPageBinding.nestedScrollView.visibility = View.GONE
-                                 }
-                                 Status.SUCCESS -> {
-                                     activityDetailPageBinding.progressBar.visibility = View.GONE
-                                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                                     tvShow.data?.let { populateTvShow(it) }
-                                 }
-                                 Status.ERROR -> {
-                                     activityDetailPageBinding.progressBar.visibility = View.GONE
-                                     activityDetailPageBinding.nestedScrollView.visibility = View.GONE
-                                     Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
-                                 }
-                             }
-                         })
-                    }
-                }
+            }
 //        }
     }
 
@@ -109,45 +87,17 @@ class DetailPageActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
         if (intent.hasExtra(EXTRA_MOVIE)) {
-            viewModel.detailMovie.observe(this, { movie ->
-                when (movie.status) {
-                    Status.LOADING -> {
-                        activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                        activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
-                    }
-                    Status.SUCCESS -> if (movie.data != null) {
-                        activityDetailPageBinding.progressBar.visibility = View.GONE
-                        activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                        val state = movie.data.favourite
-                        setFavouriteState(state)
-                    }
-                    Status.ERROR -> {
-                        activityDetailPageBinding.progressBar.visibility = View.INVISIBLE
-                        activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
-                        Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            viewModel.detailMovie.observe(this, {
+                activityDetailPageBinding.progressBar.visibility = View.GONE
+                activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                viewModel.setFavouriteMovie()
             })
         } else
             if (intent.hasExtra(EXTRA_TV)) {
-                viewModel.detailTvShow.observe(this, { tvShow ->
-                    when (tvShow.status) {
-                        Status.LOADING -> {
-                            activityDetailPageBinding.progressBar.visibility = View.VISIBLE
-                            activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
-                        }
-                        Status.SUCCESS -> if (tvShow.data != null) {
-                            activityDetailPageBinding.progressBar.visibility = View.GONE
-                            activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                            val state = tvShow.data.favourite
-                            setFavouriteState(state)
-                        }
-                        Status.ERROR -> {
-                            activityDetailPageBinding.progressBar.visibility = View.INVISIBLE
-                            activityDetailPageBinding.nestedScrollView.visibility = View.INVISIBLE
-                            Toast.makeText(applicationContext, "Failed to Load Data", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                viewModel.detailTvShow.observe(this, {
+                    activityDetailPageBinding.progressBar.visibility = View.GONE
+                    activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+                    viewModel.setFavouriteTvShow()
                 })
             }
         return true
@@ -156,8 +106,8 @@ class DetailPageActivity : AppCompatActivity() {
     private fun setFavouriteState(state: Boolean?) {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favourite)
-        if (state == true) {
-            menuItem?.icon= ContextCompat.getDrawable(this, R.drawable.ic_favourited)
+        if (state!!) {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favourited)
         } else {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favourite)
         }
@@ -167,13 +117,11 @@ class DetailPageActivity : AppCompatActivity() {
         if (intent.hasExtra(EXTRA_MOVIE)) {
             if (item.itemId == R.id.action_favourite) {
                 viewModel.setFavouriteMovie()
-                return true
             }
         } else
             if (intent.hasExtra(EXTRA_TV)) {
                 if (item.itemId == R.id.action_favourite) {
                     viewModel.setFavouriteTvShow()
-                    return true
                 }
             }
         return super.onOptionsItemSelected(item)

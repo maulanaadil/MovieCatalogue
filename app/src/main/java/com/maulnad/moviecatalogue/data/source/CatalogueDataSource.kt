@@ -10,7 +10,7 @@ interface CatalogueDataSource {
     //movies
     fun getAllMovie(): LiveData<Resource<PagedList<MovieEntity>>>
 
-    fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>>
+    fun getDetailMovie(movieId: Int): LiveData<MovieEntity>
 
     fun getListFavouriteMovie(): LiveData<PagedList<MovieEntity>>
 
@@ -19,7 +19,7 @@ interface CatalogueDataSource {
     //tvShows
     fun getAllTvShow(): LiveData<Resource<PagedList<TvShowEntity>>>
 
-    fun getDetailTvShow(tvShowId: Int): LiveData<Resource<TvShowEntity>>
+    fun getDetailTvShow(tvShowId: Int): LiveData<TvShowEntity>
 
     fun getListFavouriteTvShow(): LiveData<PagedList<TvShowEntity>>
 

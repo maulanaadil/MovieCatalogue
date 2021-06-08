@@ -78,29 +78,30 @@ class CatalogueRepository private constructor(
     }
 
 
-    override fun getDetailMovie(movieId: Int): LiveData<Resource<MovieEntity>> {
-        return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<MovieEntity> =
-                localDataSource.getDetailMovieById(movieId)
-
-            override fun shouldFetch(data: MovieEntity?): Boolean =
-                data == null
-
-            override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
-                remoteDataSource.getDetailMovies(movieId)
-
-            override fun saveCallResult(data: MovieResponse) {
-                val movie = MovieEntity(
-                    data.id,
-                    data.title,
-                    data.overview,
-                    data.posterPath,
-                    data.backgroundPath,
-                    false
-                )
-                localDataSource.updateFavMovie(movie, false)
-            }
-        }.asLiveData()
+    override fun getDetailMovie(movieId: Int): LiveData<MovieEntity> {
+//        return object : NetworkBoundResource<MovieEntity, MovieResponse>(appExecutors) {
+//            override fun loadFromDB(): LiveData<MovieEntity> =
+//                localDataSource.getDetailMovieById(movieId)
+//
+//            override fun shouldFetch(data: MovieEntity?): Boolean =
+//                data == null
+//
+//            override fun createCall(): LiveData<ApiResponse<MovieResponse>> =
+//                remoteDataSource.getDetailMovies(movieId)
+//
+//            override fun saveCallResult(data: MovieResponse) {
+//                val movie = MovieEntity(
+//                    data.id,
+//                    data.title,
+//                    data.overview,
+//                    data.posterPath,
+//                    data.backgroundPath,
+//                    false
+//                )
+//                localDataSource.updateFavMovie(movie, false)
+//            }
+//        }.asLiveData()
+        return localDataSource.getDetailMovieById(movieId)
     }
 
     override fun getListFavouriteMovie(): LiveData<PagedList<MovieEntity>> {
@@ -156,30 +157,31 @@ class CatalogueRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getDetailTvShow(tvShowId: Int): LiveData<Resource<TvShowEntity>> {
-        return object : NetworkBoundResource<TvShowEntity, TvShowResponse>(appExecutors) {
-            override fun loadFromDB(): LiveData<TvShowEntity> =
-                localDataSource.getDetailTvShowById(tvShowId)
-
-            override fun shouldFetch(data: TvShowEntity?): Boolean =
-                data == null
-
-            override fun createCall(): LiveData<ApiResponse<TvShowResponse>> =
-                remoteDataSource.getDetailTvShow(tvShowId)
-
-            override fun saveCallResult(data: TvShowResponse) {
-                val tvShow = TvShowEntity(
-                    data.id,
-                    data.name,
-                    data.overview,
-                    data.posterPath,
-                    data.backdropPath,
-                    false
-                )
-                localDataSource.updateFavTvShow(tvShow, false)
-            }
-
-        }.asLiveData()
+    override fun getDetailTvShow(tvShowId: Int): LiveData<TvShowEntity> {
+//        return object : NetworkBoundResource<TvShowEntity, TvShowResponse>(appExecutors) {
+//            override fun loadFromDB(): LiveData<TvShowEntity> =
+//                localDataSource.getDetailTvShowById(tvShowId)
+//
+//            override fun shouldFetch(data: TvShowEntity?): Boolean =
+//                data == null
+//
+//            override fun createCall(): LiveData<ApiResponse<TvShowResponse>> =
+//                remoteDataSource.getDetailTvShow(tvShowId)
+//
+//            override fun saveCallResult(data: TvShowResponse) {
+//                val tvShow = TvShowEntity(
+//                    data.id,
+//                    data.name,
+//                    data.overview,
+//                    data.posterPath,
+//                    data.backdropPath,
+//                    false
+//                )
+//                localDataSource.updateFavTvShow(tvShow, false)
+//            }
+//
+//        }.asLiveData()
+        return localDataSource.getDetailTvShowById(tvShowId)
     }
 
 

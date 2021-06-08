@@ -21,27 +21,27 @@ class DetailViewModel(private val catalogueRepository: CatalogueRepository) : Vi
         this.tvShowId.value = tvShowId
     }
 
-    var detailMovie: LiveData<Resource<MovieEntity>> = Transformations.switchMap(movieId) {
+    var detailMovie: LiveData<MovieEntity> = Transformations.switchMap(movieId) {
         catalogueRepository.getDetailMovie(it)
     }
 
-    var detailTvShow: LiveData<Resource<TvShowEntity>> = Transformations.switchMap(tvShowId) {
+    var detailTvShow: LiveData<TvShowEntity> = Transformations.switchMap(tvShowId) {
         catalogueRepository.getDetailTvShow(it)
     }
 
     fun setFavouriteMovie() {
         val movieResource = detailMovie.value
-        if (movieResource?.data != null) {
-            val newState = !movieResource.data.favourite
-            catalogueRepository.setFavouriteMovie(movieResource.data, newState)
+        if (movieResource != null) {
+            val newState = !movieResource?.favourite
+            catalogueRepository.setFavouriteMovie(movieResource, newState)
         }
     }
 
     fun setFavouriteTvShow() {
         val tvShowResource = detailTvShow.value
-        if (tvShowResource?.data != null) {
-            val newState = !tvShowResource.data.favourite
-            catalogueRepository.setFavouriteTvShow(tvShowResource.data, newState)
+        if (tvShowResource != null) {
+            val newState = !tvShowResource?.favourite
+            catalogueRepository.setFavouriteTvShow(tvShowResource, newState)
         }
     }
 }
