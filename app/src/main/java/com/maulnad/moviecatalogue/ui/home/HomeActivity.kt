@@ -6,10 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maulnad.moviecatalogue.R
 import com.maulnad.moviecatalogue.databinding.ActivityHomeBinding
@@ -40,17 +36,7 @@ class HomeActivity : AppCompatActivity() {
             onNavigationItemSelectedListener
         )
 
-//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-//        val navController = findNavController(R.id.fragmentContainerView2)
-//        val appBarConfiguration = AppBarConfiguration.Builder(
-//            R.id.navigation_movie, R.id.navigation_tvShow, R.id.navigation_favourite
-//        ).build()
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        bottomNavigationView.setupWithNavController(navController)
-
     }
-
-//    val navController = findNavController()
 
     private val onNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -62,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
             true
         }
 
-    fun loadFragment(fragment: Fragment?): Boolean {
+    private fun loadFragment(fragment: Fragment?): Boolean {
         if (fragment != null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView2, fragment)
