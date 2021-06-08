@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
-import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
 import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.databinding.FragmentTvShowsBinding
 import com.maulnad.moviecatalogue.ui.detail.DetailPageActivity
-import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
 import com.maulnad.moviecatalogue.viewmodel.ViewModelFactory
+import com.maulnad.moviecatalogue.vo.Resource
 import com.maulnad.moviecatalogue.vo.Status
 
 class TvShowsFragment : Fragment() {
@@ -42,24 +43,26 @@ class TvShowsFragment : Fragment() {
 
             tvShowsAdapter = TvShowsAdapter()
 
-            viewModel.getTvShows().observe(viewLifecycleOwner, { tvShow ->
-                if (tvShow != null) {
-                    when (tvShow.status) {
-                        Status.LOADING -> binding?.progressBar?.visibility =
-                            View.VISIBLE
-                        Status.SUCCESS -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            tvShowsAdapter.submitList(tvShow.data)
-                        }
-                        Status.ERROR -> {
-                            binding?.progressBar?.visibility = View.GONE
-                            Toast.makeText(context, "Failed Load Data TvShow", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-                }
-            })
+            viewModel.getTvShows().observe(viewLifecycleOwner, tvShowObserver)
             setRecyclerView()
+        }
+    }
+
+    private val tvShowObserver = Observer<Resource<PagedList<TvShowEntity>>> { tvShow ->
+        if (tvShow != null) {
+            when (tvShow.status) {
+                Status.LOADING -> binding?.progressBar?.visibility =
+                    View.VISIBLE
+                Status.SUCCESS -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    tvShowsAdapter.submitList(tvShow.data)
+                }
+                Status.ERROR -> {
+                    binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(context, "Failed Load Data TvShow", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
     }
 

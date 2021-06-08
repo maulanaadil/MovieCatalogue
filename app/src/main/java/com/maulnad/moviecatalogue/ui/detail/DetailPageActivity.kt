@@ -63,8 +63,8 @@ class DetailPageActivity : AppCompatActivity() {
                 viewModel.detailMovie.observe(this, {
                     activityDetailPageBinding.progressBar.visibility = View.GONE
                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+//                    setFavouriteState(it.favourite)
                     populateMovies(it)
-                    setFavouriteState(it.favourite)
                 })
             }
         } else
@@ -74,8 +74,8 @@ class DetailPageActivity : AppCompatActivity() {
                     viewModel.detailTvShow.observe(this, {
                         activityDetailPageBinding.progressBar.visibility = View.GONE
                         activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
+//                        setFavouriteState(it.favourite)
                         populateTvShow(it)
-                        setFavouriteState(it.favourite)
                     })
                 }
             }
@@ -90,23 +90,25 @@ class DetailPageActivity : AppCompatActivity() {
             viewModel.detailMovie.observe(this, {
                 activityDetailPageBinding.progressBar.visibility = View.GONE
                 activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                viewModel.setFavouriteMovie()
+                setFavouriteState(it.favourite)
+//                viewModel.setFavouriteMovie()
             })
         } else
             if (intent.hasExtra(EXTRA_TV)) {
                 viewModel.detailTvShow.observe(this, {
                     activityDetailPageBinding.progressBar.visibility = View.GONE
                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-                    viewModel.setFavouriteTvShow()
+                    setFavouriteState(it.favourite)
+//                    viewModel.setFavouriteTvShow()
                 })
             }
         return true
     }
 
-    private fun setFavouriteState(state: Boolean?) {
+    private fun setFavouriteState(state: Boolean) {
         if (menu == null) return
         val menuItem = menu?.findItem(R.id.action_favourite)
-        if (state!!) {
+        if (state) {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favourited)
         } else {
             menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favourite)

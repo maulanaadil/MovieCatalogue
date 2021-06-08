@@ -4,12 +4,13 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.maulnad.moviecatalogue.R
 import com.maulnad.moviecatalogue.ui.home.content.favourite.content.movies.FavouriteMoviesFragment
 import com.maulnad.moviecatalogue.ui.home.content.favourite.content.tvhows.FavouriteTvShowsFragment
 
 class FavouritePagerAdapter(private val mContext: FavouriteFragment, fm: FragmentManager) :
-    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
         @StringRes
