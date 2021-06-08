@@ -12,7 +12,7 @@ import com.maulnad.moviecatalogue.databinding.ActivityHomeBinding
 import com.maulnad.moviecatalogue.ui.home.content.favourite.FavouriteFragment
 import com.maulnad.moviecatalogue.ui.home.content.movies.MoviesFragment
 import com.maulnad.moviecatalogue.ui.home.content.tvshows.TvShowsFragment
-import com.maulnad.moviecatalogue.ui.menu.setting.SettingActivity
+import com.maulnad.moviecatalogue.ui.setting.SettingActivity
 
 
 class HomeActivity : AppCompatActivity() {

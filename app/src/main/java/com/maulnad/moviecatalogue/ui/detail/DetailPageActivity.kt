@@ -49,8 +49,6 @@ class DetailPageActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(applicationContext)
         viewModel = ViewModelProvider(this@DetailPageActivity, factory)[DetailViewModel::class.java]
 
-//        val extras = intent.extras
-//        if (extras != null) {
         val movieId = intent.getIntExtra(EXTRA_MOVIE, 0)
         val tvShowId = intent.getIntExtra(EXTRA_TV, 0)
 
@@ -63,7 +61,6 @@ class DetailPageActivity : AppCompatActivity() {
                 viewModel.detailMovie.observe(this, {
                     activityDetailPageBinding.progressBar.visibility = View.GONE
                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-//                    setFavouriteState(it.favourite)
                     populateMovies(it)
                 })
             }
@@ -74,12 +71,10 @@ class DetailPageActivity : AppCompatActivity() {
                     viewModel.detailTvShow.observe(this, {
                         activityDetailPageBinding.progressBar.visibility = View.GONE
                         activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
-//                        setFavouriteState(it.favourite)
                         populateTvShow(it)
                     })
                 }
             }
-//        }
     }
 
 
@@ -91,7 +86,6 @@ class DetailPageActivity : AppCompatActivity() {
                 activityDetailPageBinding.progressBar.visibility = View.GONE
                 activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
                 setFavouriteState(it.favourite)
-//                viewModel.setFavouriteMovie()
             })
         } else
             if (intent.hasExtra(EXTRA_TV)) {
@@ -99,7 +93,6 @@ class DetailPageActivity : AppCompatActivity() {
                     activityDetailPageBinding.progressBar.visibility = View.GONE
                     activityDetailPageBinding.nestedScrollView.visibility = View.VISIBLE
                     setFavouriteState(it.favourite)
-//                    viewModel.setFavouriteTvShow()
                 })
             }
         return true

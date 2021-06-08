@@ -11,7 +11,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
 import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
 import com.maulnad.moviecatalogue.databinding.ItemsFavouritePosterBinding
-import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
 import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_SIZE_ENDPOINT
 import com.maulnad.moviecatalogue.utils.Helper.IMAGE_URL_TMDD_ENDPOINT
 

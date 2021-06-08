@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maulnad.moviecatalogue.R
-import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
 import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.databinding.ItemsPosterBinding
-import com.maulnad.moviecatalogue.ui.home.content.ContentCallback
 import com.maulnad.moviecatalogue.utils.Helper
 
 class TvShowsAdapter() :
