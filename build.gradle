@@ -56,5 +56,5 @@ ext {
     roomRuntimeVersion = '2.3.0'
 
     // paging
-    pagingVersion = '3.0.0'
+    pagingVersion = '2.1.1'
 }
