@@ -44,8 +44,6 @@ class DetailViewModelTest {
     @Before
     fun setUp() {
         viewModel = DetailViewModel(catalogueRepository)
-        viewModel.setSelectedMovie(movieId)
-        viewModel.setSelectedTvShow(tvShowId)
     }
 
     @Test
@@ -55,9 +53,9 @@ class DetailViewModelTest {
 
         Mockito.`when`(catalogueRepository.getDetailMovie(movieId)).thenReturn(movieDummy)
 
-        val movieData = viewModel.detailMovie.value
+        val movieData = viewModel.getMovieDetail(movieId).value
 
-        Assert.assertNotNull(movieData)
+        assertNotNull(movieData)
         assertEquals(dummyMovie.movieId, movieData?.movieId)
         assertEquals(dummyMovie.title, movieData?.title)
         assertEquals(dummyMovie.description, movieData?.description)
@@ -76,14 +74,14 @@ class DetailViewModelTest {
 
         Mockito.`when`(catalogueRepository.getDetailTvShow(tvShowId)).thenReturn(tvShowDummy)
 
-        val tvShow = viewModel.detailTvShow.value
+        val tvShow = viewModel.getTvShowDetail(tvShowId).value
 
-        Assert.assertNotNull(tvShow)
-        assertEquals(dummyMovie.movieId, tvShow?.tvShowId)
-        assertEquals(dummyMovie.title, tvShow?.title)
-        assertEquals(dummyMovie.description, tvShow?.description)
-        assertEquals(dummyMovie.poster, tvShow?.poster)
-        assertEquals(dummyMovie.backDrop, tvShow?.backDrop)
+        assertNotNull(tvShow)
+        assertEquals(dummyTvShow.tvShowId, tvShow?.tvShowId)
+        assertEquals(dummyTvShow.title, tvShow?.title)
+        assertEquals(dummyTvShow.description, tvShow?.description)
+        assertEquals(dummyTvShow.poster, tvShow?.poster)
+        assertEquals(dummyTvShow.backDrop, tvShow?.backDrop)
 
         viewModel.detailTvShow.observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)
