@@ -14,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -48,10 +47,10 @@ class FavouriteTvShowsViewModelTest {
 
         `when`(catalogueRepository.getListFavouriteTvShow()).thenReturn(tvShow)
 
-        val tvShowEntity = viewModel.getFavouriteTvShows().value
-
-        assertNotNull(tvShowEntity)
-        assertEquals(10, tvShowEntity?.size)
+        val tvShowEntities = viewModel.getFavouriteTvShows().value
+        verify(catalogueRepository).getListFavouriteTvShow()
+        assertNotNull(tvShowEntities)
+        assertEquals(10, tvShowEntities?.size)
 
         viewModel.getFavouriteTvShows().observeForever(observer)
         verify(observer).onChanged(dummyTvShow)

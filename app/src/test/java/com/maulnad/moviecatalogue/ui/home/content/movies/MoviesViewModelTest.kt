@@ -49,7 +49,6 @@ class MoviesViewModelTest {
         `when`(catalogueRepository.getAllMovie()).thenReturn(movies)
 
         val moviesEntities = viewModel.getMovies().value?.data
-
         verify(catalogueRepository).getAllMovie()
         assertNotNull(moviesEntities)
         assertEquals(10, moviesEntities?.size)

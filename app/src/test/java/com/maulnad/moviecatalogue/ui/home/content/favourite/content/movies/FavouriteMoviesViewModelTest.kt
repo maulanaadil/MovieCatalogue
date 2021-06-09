@@ -47,10 +47,10 @@ class FavouriteMoviesViewModelTest {
 
         `when`(catalogueRepository.getListFavouriteMovie()).thenReturn(movie)
 
-        val movieEntity = viewModel.getFavouriteMovies().value
-
-        assertNotNull(movieEntity)
-        assertEquals(10, movieEntity?.size)
+        val movieEntities = viewModel.getFavouriteMovies().value
+        verify(catalogueRepository).getListFavouriteMovie()
+        assertNotNull(movieEntities)
+        assertEquals(10, movieEntities?.size)
 
         viewModel.getFavouriteMovies().observeForever(observer)
         verify(observer).onChanged(dummyMovie)

@@ -8,10 +8,9 @@ import com.maulnad.moviecatalogue.data.source.local.entity.MovieEntity
 import com.maulnad.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.maulnad.moviecatalogue.utils.DataDummy
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,14 +52,14 @@ class DetailViewModelTest {
 
         Mockito.`when`(catalogueRepository.getDetailMovie(movieId)).thenReturn(movieDummy)
 
-        val movieData = viewModel.getMovieDetail(movieId).value
-
-        assertNotNull(movieData)
-        assertEquals(dummyMovie.movieId, movieData?.movieId)
-        assertEquals(dummyMovie.title, movieData?.title)
-        assertEquals(dummyMovie.description, movieData?.description)
-        assertEquals(dummyMovie.poster, movieData?.poster)
-        assertEquals(dummyMovie.backDrop, movieData?.backDrop)
+        val moviesEntities = viewModel.getMovieDetail(movieId).value
+        verify(catalogueRepository).getDetailMovie(movieId)
+        assertNotNull(moviesEntities)
+        assertEquals(dummyMovie.movieId, moviesEntities?.movieId)
+        assertEquals(dummyMovie.title, moviesEntities?.title)
+        assertEquals(dummyMovie.description, moviesEntities?.description)
+        assertEquals(dummyMovie.poster, moviesEntities?.poster)
+        assertEquals(dummyMovie.backDrop, moviesEntities?.backDrop)
 
         viewModel.detailMovie.observeForever(observerMovie)
         verify(observerMovie).onChanged(dummyMovie)
@@ -74,14 +73,14 @@ class DetailViewModelTest {
 
         Mockito.`when`(catalogueRepository.getDetailTvShow(tvShowId)).thenReturn(tvShowDummy)
 
-        val tvShow = viewModel.getTvShowDetail(tvShowId).value
-
-        assertNotNull(tvShow)
-        assertEquals(dummyTvShow.tvShowId, tvShow?.tvShowId)
-        assertEquals(dummyTvShow.title, tvShow?.title)
-        assertEquals(dummyTvShow.description, tvShow?.description)
-        assertEquals(dummyTvShow.poster, tvShow?.poster)
-        assertEquals(dummyTvShow.backDrop, tvShow?.backDrop)
+        val tvShowEntities = viewModel.getTvShowDetail(tvShowId).value
+        verify(catalogueRepository).getDetailTvShow(tvShowId)
+        assertNotNull(tvShowEntities)
+        assertEquals(dummyTvShow.tvShowId, tvShowEntities?.tvShowId)
+        assertEquals(dummyTvShow.title, tvShowEntities?.title)
+        assertEquals(dummyTvShow.description, tvShowEntities?.description)
+        assertEquals(dummyTvShow.poster, tvShowEntities?.poster)
+        assertEquals(dummyTvShow.backDrop, tvShowEntities?.backDrop)
 
         viewModel.detailTvShow.observeForever(observerTvShow)
         verify(observerTvShow).onChanged(dummyTvShow)
