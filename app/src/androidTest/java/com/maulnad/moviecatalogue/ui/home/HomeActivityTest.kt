@@ -58,13 +58,11 @@ class HomeActivityTest {
         )
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyMovie[0].title)))
 
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc)).check(matches(withText(dummyMovie[0].description)))
 
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
         onView(withId(R.id.iv_poster2)).check(matches(isDisplayed()))
@@ -93,25 +91,17 @@ class HomeActivityTest {
         )
 
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_title)).check(matches(withText(dummyTvShow[0].title)))
 
         onView(withId(R.id.textView)).check(matches(isDisplayed()))
         onView(withId(R.id.textView)).check(matches(withText("Storyboard")))
 
         onView(withId(R.id.tv_desc)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_desc)).check(matches(withText(dummyTvShow[0].description)))
 
         onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun viewTest() {
-        onView(withId(R.id.rv_movies)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.navigation_tvShow)).perform(click())
-        onView(withId(R.id.rv_tv_shows)).check(matches(isDisplayed()))
-
-
+    fun loadFavourite() {
         onView(withId(R.id.navigation_favourite)).perform(click())
         onView(withText("MOVIES")).perform(click())
         onView(withText("TV SHOWS")).perform(click())

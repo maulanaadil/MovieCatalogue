@@ -46,7 +46,9 @@ class FavouriteMoviesViewModelTest {
         movie.value = dummyMovie
 
         `when`(catalogueRepository.getListFavouriteMovie()).thenReturn(movie)
+
         val movieEntity = viewModel.getFavouriteMovies().value
+
         assertNotNull(movieEntity)
         assertEquals(10, movieEntity?.size)
 
